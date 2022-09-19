@@ -15,5 +15,6 @@ Cubic Bezier is a function that takes two Points:
     ```t = 1``` is the end of animation
     <br>
 ## Inspiration
-    special thanks to this github gist I found:
-    https://gist.github.com/pushkine/fbc7cf18e0a40ffb02b3b3a20b74f4f1
+special thanks to this Github [Gist](https://gist.github.com/pushkine/fbc7cf18e0a40ffb02b3b3a20b74f4f1) I found:
+<br>
+For more info on cubic-bezier: [https://cubic-bezier.com/]
