@@ -1,5 +1,6 @@
 # cubic-bezier-in-js
 An Implementation of css ```cubic-bezier``` function in js
+View here: [https://pouyamer.github.io/cubic-bezier-in-js]
 ## Definition
 Cubic Bezier is a function that takes two Points:
   <br>
