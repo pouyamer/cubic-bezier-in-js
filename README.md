@@ -1,4 +1,6 @@
 # cubic-bezier-in-js
+![screen-capture (1)](https://user-images.githubusercontent.com/20505286/191136069-933bbcdd-3342-4818-833a-bd96d0396da1.gif)
+
 An Implementation of css ```cubic-bezier``` function in js
 View here: [https://pouyamer.github.io/cubic-bezier-in-js]
 ## Definition
