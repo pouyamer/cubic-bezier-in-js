@@ -1,6 +1,9 @@
 const canvas = document.querySelector(".canvas")
+const btnStartAnimation = document.querySelector(".btn-start-animation")
+const textEl = document.querySelector(".text")
+
 const ctx = canvas.getContext("2d")
-const size = { width: 400, height: 400 }
+const size = { width: 400, height: 300 }
 canvas.width = size.width
 canvas.height = size.height
 
@@ -19,8 +22,9 @@ const BY0 = 0.17
 const BX1 = 0.2
 const BY1 = 0.56
 
+let isAnimationPlaying = false
+
 // start of animation is from (30, 200) to (230, 200)
-canvas.style.border = "1px solid black"
 
 class Point {
   constructor(x, y) {
@@ -106,6 +110,8 @@ const animate = () => {
   frame = requestAnimationFrame(animate)
   if (currentTime >= 1) {
     cancelAnimationFrame(frame)
+    isAnimationPlaying = false
+    btnStartAnimation.disabled = false
   }
   ctx.clearRect(0, 0, size.width, size.height)
 
@@ -140,5 +146,25 @@ const animate = () => {
   point.draw()
 }
 
-// App begins from here...
-animate()
+btnStartAnimation.addEventListener("click", () => {
+  if (isAnimationPlaying) {
+    return
+  }
+  x = X_BEGIN
+  currentTime = 0
+  frame
+  point = new Point(x, Y)
+
+  isAnimationPlaying = true
+  animate()
+  btnStartAnimation.disabled = true
+})
+
+// App begins here...
+startPoint.draw("hsl(0, 0%, 0%, .5)")
+endPoint.draw("hsl(0, 0%, 0%, .1)")
+
+textEl.querySelector(".x0").innerText = BX0
+textEl.querySelector(".y0").innerText = BY0
+textEl.querySelector(".x1").innerText = BX1
+textEl.querySelector(".x2").innerText = BY1
