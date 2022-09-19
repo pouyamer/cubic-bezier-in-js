@@ -1,0 +1,77 @@
+/* css reset */
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #131f3d;
+  --secondary-color: #226a84;
+  --button-background: #6cb99e;
+  --text-color: #333;
+  --site-background: #243070;
+  --container-background: #ebefe6;
+}
+
+body {
+  background-color: var(--site-background);
+  display: grid;
+  height: 100vh;
+  place-items: center;
+}
+
+.container {
+  display: grid;
+  gap: 3em;
+  justify-content: center;
+  background-color: var(--container-background);
+
+  max-width: fit-content;
+  padding: 2em;
+
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  border-radius: 1em;
+
+  display: grid;
+}
+
+.canvas {
+  justify-self: center;
+}
+
+.text {
+  font-size: 40px;
+  color: var(--primary-color);
+  margin: 0.2em 0;
+}
+
+.btn-start-animation {
+  cursor: pointer;
+  border: none;
+  background-color: var(--button-background);
+  color: var(--text-color);
+  padding: 0.3em 0.5em;
+  border-radius: 4px;
+  font-size: 32px;
+  width: 50%;
+  justify-self: center;
+}
+
+.btn-start-animation:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.x0,
+.y0 {
+  color: var(--site-background);
+}
+
+.x1,
+.y1 {
+  color: var(--secondary-color);
+}
