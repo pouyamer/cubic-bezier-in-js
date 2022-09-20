@@ -1,30 +1,37 @@
+import config from "./config.json" assert { type: "json" }
+
+const {
+  canvas: canvasSize,
+  animation,
+  bezierPoints: { p0, p1 }
+} = config
+
 const canvas = document.querySelector(".canvas")
 const btnStartAnimation = document.querySelector(".btn-start-animation")
 const textEl = document.querySelector(".text")
 
 const ctx = canvas.getContext("2d")
-const size = { width: 400, height: 300 }
-canvas.width = size.width
-canvas.height = size.height
 
-const POINT_RADIUS = 30 // radius of points
+canvas.width = canvasSize.width
+canvas.height = canvasSize.height
 
-const X_BEGIN = 50 // Beginning Value (from)
-const X_END = 350 // End Value (to)
-const Y = 200
+const POINT_RADIUS = config.point.radius // radius of points
 
-const ANIMATION_DURATION = 2 // seconds
-const FRAMES_PER_SECOND = 60 // your average frames per second
+const X_STARTING = config.x.starting // Beginning Value (from)
+const X_END = config.x.end // End Value (to)
+const Y = config.y
+
+const ANIMATION_DURATION = animation.duration // seconds
+const FRAMES_PER_SECOND = animation.fps // your average frames per second
 
 // bezier parameters
-const BX0 = 0.6
-const BY0 = 0.17
-const BX1 = 0.2
-const BY1 = 0.56
-
-let isAnimationPlaying = false
+const BX0 = p0.x
+const BY0 = p0.y
+const BX1 = p1.x
+const BY1 = p1.y
 
 // start of animation is from (30, 200) to (230, 200)
+let isAnimationPlaying = false
 
 class Point {
   constructor(x, y) {
@@ -98,10 +105,10 @@ const cubicBezierBasedOnTimeAndValue = (
 }
 
 // Showing the end and starting points on canvas
-const startPoint = new Point(X_BEGIN, Y)
+const startPoint = new Point(X_STARTING, Y)
 const endPoint = new Point(X_END, Y)
 
-let x = X_BEGIN
+let x = X_STARTING
 let currentTime = 0 // current time [0 - 1]
 let frame // stores the requestAnimationFrame in order to use cancelAnimationFrame(frame) later
 let point = new Point(x, Y)
@@ -113,7 +120,7 @@ const animate = () => {
     isAnimationPlaying = false
     btnStartAnimation.disabled = false
   }
-  ctx.clearRect(0, 0, size.width, size.height)
+  ctx.clearRect(0, 0, canvasSize.width, canvasSize.height)
 
   startPoint.draw("hsl(0, 0%, 0%, .5)")
   endPoint.draw("hsl(0, 0%, 0%, .1)")
@@ -130,7 +137,7 @@ const animate = () => {
   */
 
   x = cubicBezierBasedOnTimeAndValue(
-    X_BEGIN,
+    X_STARTING,
     X_END,
     BX0,
     BY0,
@@ -143,14 +150,14 @@ const animate = () => {
 
   point = new Point(x, Y)
 
-  point.draw()
+  point.draw(config.point.color)
 }
 
 btnStartAnimation.addEventListener("click", () => {
   if (isAnimationPlaying) {
     return
   }
-  x = X_BEGIN
+  x = X_STARTING
   currentTime = 0
   frame
   point = new Point(x, Y)
@@ -168,3 +175,5 @@ textEl.querySelector(".x0").innerText = BX0
 textEl.querySelector(".y0").innerText = BY0
 textEl.querySelector(".x1").innerText = BX1
 textEl.querySelector(".x2").innerText = BY1
+
+// TODO: add config.js :DONE
