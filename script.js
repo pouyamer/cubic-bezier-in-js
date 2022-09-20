@@ -174,6 +174,6 @@ endPoint.draw("hsl(0, 0%, 0%, .1)")
 textEl.querySelector(".x0").innerText = BX0
 textEl.querySelector(".y0").innerText = BY0
 textEl.querySelector(".x1").innerText = BX1
-textEl.querySelector(".x2").innerText = BY1
+textEl.querySelector(".y1").innerText = BY1
 
 // TODO: add config.js :DONE
