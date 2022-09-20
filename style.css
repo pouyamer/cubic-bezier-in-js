@@ -11,7 +11,10 @@
 :root {
   --primary-color: #131f3d;
   --secondary-color: #226a84;
+
   --button-background: #6cb99e;
+  --button-background-hover: #5da28a;
+
   --text-color: #333;
   --site-background: #243070;
   --container-background: #ebefe6;
@@ -44,9 +47,14 @@ body {
 }
 
 .text {
-  font-size: 2rem;
+  font-size: 1.9rem;
   color: var(--primary-color);
   margin: 0.2em 0;
+}
+
+.btn-start-animation,
+.btn-start-animation:hover {
+  transition: background 200ms ease-in;
 }
 
 .btn-start-animation {
@@ -59,6 +67,10 @@ body {
   font-size: 2rem;
   width: 50%;
   justify-self: center;
+}
+
+.btn-start-animation:hover {
+  background-color: var(--button-background-hover);
 }
 
 .btn-start-animation:disabled {
