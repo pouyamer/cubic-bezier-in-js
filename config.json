@@ -1,0 +1,29 @@
+{
+  "point": {
+    "radius": 20,
+    "color": "black"
+  },
+  "x": {
+    "starting": 50,
+    "end": 250
+  },
+  "y": 150,
+  "canvas": {
+    "height": 200,
+    "width": 300
+  },
+  "animation": {
+    "duration": 2,
+    "fps": 60
+  },
+  "bezierPoints": {
+    "p0": {
+      "x": 0.6,
+      "y": 0.17
+    },
+    "p1": {
+      "x": 0.2,
+      "y": 0.56
+    }
+  }
+}
