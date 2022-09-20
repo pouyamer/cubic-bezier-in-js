@@ -26,12 +26,12 @@ body {
 
 .container {
   display: grid;
-  gap: 3em;
+  gap: 2em;
   justify-content: center;
   background-color: var(--container-background);
 
   max-width: fit-content;
-  padding: 2em;
+  padding: 1em;
 
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   border-radius: 1em;
@@ -44,7 +44,7 @@ body {
 }
 
 .text {
-  font-size: 40px;
+  font-size: 2rem;
   color: var(--primary-color);
   margin: 0.2em 0;
 }
@@ -55,8 +55,8 @@ body {
   background-color: var(--button-background);
   color: var(--text-color);
   padding: 0.3em 0.5em;
-  border-radius: 4px;
-  font-size: 32px;
+  border-radius: 0.25rem;
+  font-size: 2rem;
   width: 50%;
   justify-self: center;
 }
@@ -74,4 +74,10 @@ body {
 .x1,
 .y1 {
   color: var(--secondary-color);
+}
+
+@media only screen and (max-width: 600px) {
+  html {
+    font-size: 12px;
+  }
 }
