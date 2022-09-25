@@ -9,6 +9,14 @@ const {
 const canvas = document.querySelector(".canvas")
 const btnStartAnimation = document.querySelector(".btn-start-animation")
 const textEl = document.querySelector(".text")
+const bezierInpElements = [...document.querySelectorAll(".bezier-inputs input")]
+const btnEdit = document.querySelector(".btn-edit")
+const btnCopy = document.querySelector(".btn-copy")
+const settingEl = document.querySelector(".settings")
+const btnCancelBezierSet = document.querySelector(".btn-bezier-cancel")
+const btnConfirmBezierSet = document.querySelector(".btn-bezier-confirm")
+
+let currentBezierValues
 
 const ctx = canvas.getContext("2d")
 
@@ -25,10 +33,10 @@ const ANIMATION_DURATION = animation.duration // seconds
 const FRAMES_PER_SECOND = animation.fps // your average frames per second
 
 // bezier parameters
-const BX0 = p0.x
-const BY0 = p0.y
-const BX1 = p1.x
-const BY1 = p1.y
+let BX0 = p0.x
+let BY0 = p0.y
+let BX1 = p1.x
+let BY1 = p1.y
 
 // start of animation is from (30, 200) to (230, 200)
 let isAnimationPlaying = false
@@ -44,6 +52,24 @@ class Point {
     ctx.beginPath()
     ctx.arc(this.x, this.y, POINT_RADIUS, 0, 2 * Math.PI)
     ctx.fill()
+  }
+}
+
+class BezierValues {
+  constructor(x0, y0, x1, y1) {
+    this.x0 = x0
+    this.y0 = y0
+    this.x1 = x1
+    this.y1 = y1
+  }
+
+  equals = bezierValues => {
+    return (
+      this.x0 == bezierValues.x0 &&
+      this.y0 == bezierValues.y0 &&
+      this.x1 == bezierValues.x1 &&
+      this.y1 == bezierValues.y1
+    )
   }
 }
 
@@ -167,6 +193,72 @@ btnStartAnimation.addEventListener("click", () => {
   btnStartAnimation.disabled = true
 })
 
+bezierInpElements.forEach(el =>
+  el.addEventListener("change", () => {
+    if (el.value > 1) {
+      el.value = 1
+    }
+    if (el.value <= 0 || !el.value) {
+      el.value = 0
+    }
+
+    const newValues = new BezierValues(
+      bezierInpElements[0].value,
+      bezierInpElements[1].value,
+      bezierInpElements[2].value,
+      bezierInpElements[3].value
+    )
+
+    btnConfirmBezierSet.disabled = currentBezierValues.equals(newValues)
+  })
+)
+
+btnEdit.addEventListener("click", () => {
+  settingEl.classList.add("shown")
+  btnEdit.disabled = true
+})
+
+btnCancelBezierSet.addEventListener("click", () => {
+  // resetting the bezier inputs
+  bezierInpElements[0].value = currentBezierValues.x0
+  bezierInpElements[1].value = currentBezierValues.y0
+  bezierInpElements[2].value = currentBezierValues.x1
+  bezierInpElements[3].value = currentBezierValues.y1
+
+  btnEdit.disabled = false
+  settingEl.classList.remove("shown")
+  btnConfirmBezierSet.disabled = true
+})
+
+btnConfirmBezierSet.addEventListener("click", () => {
+  // setting temp value so it can get utilized on cancel and confirm later
+  currentBezierValues = new BezierValues(
+    bezierInpElements[0].value,
+    bezierInpElements[1].value,
+    bezierInpElements[2].value,
+    bezierInpElements[3].value
+  )
+  // setting values so it can get utilized on canvas
+  BX0 = currentBezierValues.x0
+  BY0 = currentBezierValues.y0
+  BX1 = currentBezierValues.x1
+  BY1 = currentBezierValues.y1
+
+  // setting values in html element
+  textEl.querySelector(".x0").innerText = BX0
+  textEl.querySelector(".y0").innerText = BY0
+  textEl.querySelector(".x1").innerText = BX1
+  textEl.querySelector(".y1").innerText = BY1
+
+  settingEl.classList.remove("shown")
+  btnEdit.disabled = false
+  btnConfirmBezierSet.disabled = true
+})
+btnCopy.addEventListener("click", () => {
+  const text = `cubic-bezier(${BX0},${BY0},${BX1},${BY1})`.trim()
+  navigator.clipboard.writeText(text)
+})
+
 // App begins here...
 startPoint.draw("hsl(0, 0%, 0%, .5)")
 endPoint.draw("hsl(0, 0%, 0%, .1)")
@@ -175,5 +267,15 @@ textEl.querySelector(".x0").innerText = BX0
 textEl.querySelector(".y0").innerText = BY0
 textEl.querySelector(".x1").innerText = BX1
 textEl.querySelector(".y1").innerText = BY1
+
+// Setting the value editor values
+bezierInpElements[0].value = BX0
+bezierInpElements[1].value = BY0
+bezierInpElements[2].value = BX1
+bezierInpElements[3].value = BY1
+//    Setting the values so we cancel back to it
+currentBezierValues = new BezierValues(BX0, BY0, BX1, BY1)
+//    Since theres nothing to change, confirm btn doesn't make sense yet
+btnConfirmBezierSet.disabled = true
 
 // TODO: add config.js :DONE

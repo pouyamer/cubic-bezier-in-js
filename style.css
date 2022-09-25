@@ -12,8 +12,10 @@
   --primary-color: #131f3d;
   --secondary-color: #226a84;
 
-  --button-background: #6cb99e;
-  --button-background-hover: #5da28a;
+  --button-main-background: #6cb99e;
+  --button-main-background-hover: #5da28a;
+  --button-cancel-background: #dd6e6e;
+  --button-cancel-background-hover: #ca5353;
 
   --text-color: #333;
   --site-background: #243070;
@@ -27,6 +29,27 @@ body {
   place-items: center;
 }
 
+button {
+  cursor: pointer;
+  background-color: var(--button-main-background);
+  color: var(--text-color);
+  border: none;
+}
+
+button:hover {
+  background-color: var(--button-main-background-hover);
+}
+
+button,
+button:hover {
+  transition: background 200ms ease-in;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
 .container {
   display: grid;
   gap: 2em;
@@ -34,7 +57,7 @@ body {
   background-color: var(--container-background);
 
   max-width: fit-content;
-  padding: 1em;
+  padding: 4em;
 
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   border-radius: 1em;
@@ -46,36 +69,75 @@ body {
   justify-self: center;
 }
 
+.settings {
+  position: relative;
+  display: none;
+  gap: 10px;
+}
+
+.settings.shown {
+  display: flex;
+}
+
+.bezier-inputs {
+  display: flex;
+  gap: 10px;
+}
+.bezier-inputs input {
+  font-size: 1.9rem;
+  width: 5ch;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px rgba(51, 51, 51, 0.175) solid;
+  outline: none;
+}
+
+.btn-bezier {
+  border-radius: 0.3rem;
+  padding: 0.8rem;
+  font-size: large;
+}
+
+.btn-bezier-cancel {
+  background-color: var(--button-cancel-background);
+}
+
+.btn-bezier-cancel:hover {
+  background-color: var(--button-cancel-background-hover);
+}
+
 .text {
   font-size: 1.9rem;
   color: var(--primary-color);
   margin: 0.2em 0;
+  display: flex;
+  gap: 5px;
 }
 
-.btn-start-animation,
-.btn-start-animation:hover {
-  transition: background 200ms ease-in;
+.btn-edit,
+.btn-copy {
+  padding: 0.5em;
+  border-radius: 1em;
+}
+
+.btn-copy img {
+  width: 26px;
+}
+
+.btn-edit svg {
+  width: 26px;
+  height: 26px;
+  fill: var(--text-color);
 }
 
 .btn-start-animation {
-  cursor: pointer;
-  border: none;
-  background-color: var(--button-background);
+  background-color: var(--button-main-background);
   color: var(--text-color);
   padding: 0.3em 0.5em;
   border-radius: 0.25rem;
   font-size: 2rem;
   width: 50%;
   justify-self: center;
-}
-
-.btn-start-animation:hover {
-  background-color: var(--button-background-hover);
-}
-
-.btn-start-animation:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
 }
 
 .x0,
