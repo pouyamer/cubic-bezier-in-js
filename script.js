@@ -142,6 +142,7 @@ let point = new Point(x, Y)
 const animate = () => {
   frame = requestAnimationFrame(animate)
   if (currentTime >= 1) {
+    btnStartAnimation.innerHTML = "<b>Start</b>"
     cancelAnimationFrame(frame)
     isAnimationPlaying = false
     btnStartAnimation.disabled = false
@@ -179,7 +180,7 @@ const animate = () => {
   point.draw(config.point.color)
 }
 
-btnStartAnimation.addEventListener("click", () => {
+btnStartAnimation.addEventListener("click", e => {
   if (isAnimationPlaying) {
     return
   }
@@ -187,6 +188,7 @@ btnStartAnimation.addEventListener("click", () => {
   currentTime = 0
   frame
   point = new Point(x, Y)
+  e.target.innerHTML = "<b>Wait...</b>"
 
   isAnimationPlaying = true
   animate()
@@ -279,3 +281,4 @@ currentBezierValues = new BezierValues(BX0, BY0, BX1, BY1)
 btnConfirmBezierSet.disabled = true
 
 // TODO: add config.js :DONE
+// TODO: add an indicator that shows "Cubic Bezier Copied!" and maybe "Already copied!"

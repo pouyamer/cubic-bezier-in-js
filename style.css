@@ -9,17 +9,23 @@
 }
 
 :root {
+  --p1-text-color: #221d35;
+  --p2-text-color: #65579e;
+
   --primary-color: #131f3d;
   --secondary-color: #226a84;
 
-  --button-main-background: #6cb99e;
-  --button-main-background-hover: #5da28a;
-  --button-cancel-background: #dd6e6e;
-  --button-cancel-background-hover: #ca5353;
+  --button-main-background: #d8973c;
+  --button-main-background-hover: #cc8828;
+  --button-cancel-background: #dc493a;
+  --button-cancel-background-hover: #d03625;
 
   --text-color: #333;
-  --site-background: #243070;
-  --container-background: #ebefe6;
+  --site-background: #27213c;
+  --container-background: #fefefa;
+
+  --disabled-text-color: #4a4a4a;
+  --button-cancel-text-color: #fcefee;
 }
 
 body {
@@ -47,22 +53,21 @@ button:hover {
 
 button:disabled {
   background-color: #ccc;
+  opacity: 0.3;
   cursor: not-allowed;
 }
 
 .container {
   display: grid;
   gap: 2em;
-  justify-content: center;
+
+  justify-items: center;
   background-color: var(--container-background);
 
-  max-width: fit-content;
-  padding: 4em;
+  padding: 2em;
 
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   border-radius: 1em;
-
-  display: grid;
 }
 
 .canvas {
@@ -84,22 +89,29 @@ button:disabled {
   gap: 10px;
 }
 .bezier-inputs input {
-  font-size: 1.9rem;
+  font-size: 1.5rem;
   width: 5ch;
   background-color: transparent;
   border: none;
-  border-bottom: 2px rgba(51, 51, 51, 0.175) solid;
+  border-bottom: 2px #111 solid;
   outline: none;
+  opacity: 0.4;
+}
+
+.bezier-inputs input:is(:hover, :focus) {
+  border-bottom-color: #111;
+  opacity: 1;
 }
 
 .btn-bezier {
-  border-radius: 0.3rem;
-  padding: 0.8rem;
-  font-size: large;
+  border-radius: 0.25em;
+  padding: 0.75em;
+  font-size: 1.25rem;
 }
 
 .btn-bezier-cancel {
   background-color: var(--button-cancel-background);
+  color: var(--button-cancel-text-color);
 }
 
 .btn-bezier-cancel:hover {
@@ -107,8 +119,8 @@ button:disabled {
 }
 
 .text {
-  font-size: 1.9rem;
-  color: var(--primary-color);
+  font-size: 2rem;
+  color: var(--text-color);
   margin: 0.2em 0;
   display: flex;
   gap: 5px;
@@ -130,6 +142,10 @@ button:disabled {
   fill: var(--text-color);
 }
 
+.btn-edit:disabled svg {
+  fill: var(--disabled-text-color);
+}
+
 .btn-start-animation {
   background-color: var(--button-main-background);
   color: var(--text-color);
@@ -140,14 +156,19 @@ button:disabled {
   justify-self: center;
 }
 
-.x0,
-.y0 {
-  color: var(--site-background);
+.p0,
+.p1 {
+  letter-spacing: -0.1rem;
 }
 
-.x1,
-.y1 {
-  color: var(--secondary-color);
+.p0 {
+  color: var(--p1-text-color);
+  font-size: 1.75rem;
+}
+
+.p1 {
+  color: var(--p2-text-color);
+  font-size: 2rem;
 }
 
 @media only screen and (max-width: 600px) {
